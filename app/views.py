@@ -11,9 +11,7 @@ import datetime
 from .forms import UserForm
 
 def get_runtime_string(activation_timestamp):
-    print(activation_timestamp)
     now = timezone.now()
-    print(now)
     diff = now - activation_timestamp
     total_seconds = diff.total_seconds()
     hours = int(total_seconds / 3600)

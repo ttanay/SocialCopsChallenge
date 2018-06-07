@@ -36,12 +36,14 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-md-10 offset-md-1 d-flex flex-row justify-content-around">
-                        <p class="text-center lead">Email</p>
-                        <p class="text-center lead">Phone(SMS)</p>   
-                    </div>
-                    <div class="col-12 col-md-10 offset-md-1 d-flex flex-row justify-content-around">
-                        <button type="button" id="emailButton" class="btn {% if user.email_remind_status == True %}btn-outline-danger">Deactivate{% else %}btn-outline-success">Activate {% endif %}</button>
-                        <button type="button" id="phoneButton" class="btn {% if user.phone_remind_status == True %}btn-outline-danger">Deactivate{% else %}btn-outline-success">Activate {% endif %}</button>
+                        <div class="d-flex flex-column justify-content-center">
+                            <p class="text-center lead">Email</p>
+                            <button type="button" id="emailButton" class="btn {% if user.email_remind_status == True %}btn-outline-danger">Deactivate{% else %}btn-outline-success">Activate {% endif %}</button>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <p class="text-center lead">Phone(SMS)</p>   
+                            <button type="button" id="phoneButton" class="btn {% if user.phone_remind_status == True %}btn-outline-danger">Deactivate{% else %}btn-outline-success">Activate {% endif %}</button>
+                        </div>
                     </div>
                 </div>
             </div>
