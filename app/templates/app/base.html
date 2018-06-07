@@ -1,0 +1,49 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+        <title>{% block title %}SocialCops{% endblock %}</title>
+    </head>
+    <body>
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
+            <a href="https://github.com/ttanay" class="navbar-brand mx-auto">
+                <img src="https://s3.amazonaws.com/edge-files/company+logos/SOCIALCOPS_LOGO_WHITE.png" width="100" heigth="100" class="img-fluid" alt="SocialCops | Data to Decisions">
+                Challenge
+            </a>
+            {% block logout %}
+            {% endblock %}
+        </nav>
+    
+        {% block hello %}{% endblock %}
+
+        <div class="container my-4 d-flex justify-content-center">
+            <div class="row">
+                <div class="col-10 offset-1">
+                    <p class="text-center">This application will help you remember your name. You will get constant reminders every hour via SMS and/or email.</p>
+                    <p class="lead text-center">Simple!</p>
+                </div>
+            </div>
+        </div>
+    
+    
+        {% block main %}
+        {% endblock %}
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        {% block js %}{% endblock %}
+    </body>
+</html>

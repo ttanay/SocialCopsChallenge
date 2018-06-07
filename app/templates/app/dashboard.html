@@ -1,0 +1,185 @@
+{% extends "app/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block logout %}
+    <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link text-center" href="{% url 'logout' %}"><button type="button" class="btn btn-outline-light">Logout</button></a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block hello %}
+    <div class="container">
+        <div class="row">
+            <div class="col-10 col-md-8 offset-md-2 offset-1">
+                <h1 class="text-center m-3">Hello {{ user.name }}</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <!-- BUTTONS -->
+    
+    <div class="container">
+        <div class="card my-2" id="remind-controls">
+            <div class="card-header">
+                <p class="text-center my-auto lead">Set Reminder Via</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-10 offset-md-1 d-flex flex-row justify-content-around">
+                        <p class="text-center lead">Email</p>
+                        <p class="text-center lead">Phone(SMS)</p>   
+                    </div>
+                    <div class="col-12 col-md-10 offset-md-1 d-flex flex-row justify-content-around">
+                        <button type="button" id="emailButton" class="btn {% if user.email_remind_status == True %}btn-outline-danger">Deactivate{% else %}btn-outline-success">Activate {% endif %}</button>
+                        <button type="button" id="phoneButton" class="btn {% if user.phone_remind_status == True %}btn-outline-danger">Deactivate{% else %}btn-outline-success">Activate {% endif %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LOG -->
+
+    <div class="container">
+        <div class="card my-2" id="log">
+            <div class="card-header">
+                <p class="text-center my-auto lead">Service Failures</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10 col-md-8 offset-md-2 offset-1">
+                        <p class="text-left">
+                            {% if user.service_failure %}
+                                {{ user.service_Failure }}
+                            {% else %}
+                                <p class="text-center">The service has not failed.</p>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- RUNNING TIME -->
+
+    <div class="container">
+        <div class="card my-2" id="log">
+            <div class="card-header">
+                <p class="text-center lead my-auto">Running Time</p>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center border-top-0">Email</th>
+                                <th scope="col" class="text-center border-top-0">Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center" id="emailRuntime">{% if email_runtime %} {{ email_runtime }}{% else %}(inactive){% endif %}</td>
+                                <td class="text-center" id="phoneRuntime">{% if phone_runtime %} {{ phone_runtime }}{% else %}(inactive){% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var service_status = {
+            "email": {% if user.email_remind_status == True %}true{% else %}false{% endif %},
+            "phone": {% if user.phone_remind_status == True %}true{% else %}false{% endif %},
+        };
+        $(document).ready(function(){
+            $("#emailButton").click(function(){
+                console.log(service_status["email"]);
+                if(service_status["email"]){
+                    $.ajax({
+                        type: 'GET',
+                        url: '{% url 'deactivate_email' %}',
+                        dataType: 'json',
+                        success: function(data){
+                            if(data.success){
+                                console.log('deactivated email')
+                                $("#emailButton").attr('class', 'btn btn-outline-success');
+                                $("#emailButton").html('Activate');
+                                $('#emailRuntime').html('(inactive)');
+                                service_status["email"] = false;
+                            }
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        type: 'GET',
+                        url: '{% url 'activate_email' %}',
+                        dataType: 'json',
+                        success: function(data){
+                            if(data.success){
+                                console.log('activated email')
+                                $("#emailButton").attr('class', 'btn btn-outline-danger');
+                                $("#emailButton").html('Deactivate');
+                                $('#emailRuntime').html('0 mins');
+                                service_status["email"] = true;
+                            }
+                        }
+                    });
+                }
+            });
+            $("#phoneButton").click(function(){
+                console.log(service_status["phone"]);
+                if(service_status["phone"]){
+                    $.ajax({
+                        type: 'GET',
+                        url: '{% url 'deactivate_phone' %}',
+                        dataType: 'json',
+                        success: function(data){
+                            if(data.success){
+                                console.log('deactivated phone')
+                                $("#phoneButton").attr('class', 'btn btn-outline-success');
+                                $("#phoneButton").html('Activate');
+                                $('#phoneRuntime').html('(inactive)');
+                                service_status["phone"] = false;
+                            }
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        type: 'GET',
+                        url: '{% url 'activate_phone' %}',
+                        dataType: 'json',
+                        success: function(data){
+                            if(data.success){
+                                console.log('activated phone')
+                                $("#phoneButton").attr('class', 'btn btn-outline-danger');
+                                $("#phoneButton").html('Deactivate');
+                                $('#phoneRuntime').html('0 mins');
+                                service_status["phone"] = true;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

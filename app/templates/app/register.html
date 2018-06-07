@@ -1,0 +1,54 @@
+{% extends "app/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block main %}
+    <!-- Registration Form -->
+    <div class="container">  
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-10 offset-1">
+                <div class="card">
+                    <div class="card-header p-0"><p class="lead text-center my-1">Register</p></div>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Name</label>
+                                <input type="text" class="form-control" placeholder="Enter Name" name="name" {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
+                                <small class="form-text text-muted">{{ form.name.errors }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.username.id_for_label }}">Username</label>
+                                <input type="text" class="form-control" placeholder="Enter Userame" name="username" {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+                                <small class="form-text text-muted">{{ form.username.errors }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}">Email</label>
+                                <input type="email" class="form-control" placeholder="Enter Email" name="email" {% if form.email.value %}value="{{ form.email.value }}"{% endif %}>
+                                <small class="form-text text-muted">{{ form.email.errors }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">+91</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Enter Phone Number" aria-label="phone" name="phone" aria-describedby="basic-addon1" {% if form.phone.value %}value="{{ form.phone.value }}"{% endif %}>
+                                </div>
+                                <small class="form-text text-muted">{{ form.phone.errors }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.password.id_for_label }}">Password</label>
+                                <input type="password" class="form-control" placeholder="Enter Password" name="password">
+                                <small class="form-text text-muted">{{ form.password.errors }}</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <p class="text-center lead">Already a user? <a href="{% url 'login' %}"><u>Login</u></a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
