@@ -9,8 +9,8 @@ from challenge.credentials import MSG91_URL
 
 def send_email(user):
     send_mail(
-        "Your name is {}".format(user.name),
-        "Hello! your name is {}. \n\nCheers!\nT. Tanay".format(user.name),
+            "Your name is {}".format(user.name),
+        "Amnesia\n\nHello! your name is {}. \n\nCheers!\nT. Tanay".format(user.name),
         "ttanay100@gmail.com",
         [user.email],
         fail_silently=False,
