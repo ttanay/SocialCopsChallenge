@@ -25,8 +25,11 @@ def email_helper(user, fail_count=0):
     except Exception as e:
         now = datetime.now()
         now = now.strftime("%d %b %Y, %H:%M")
-        failure_message = "<u>{} Mail: </u> {}<br>".format(now, e)
-        user.service_failure += failure_message
+        failure_message = "<u>{} <bold>Mail</bold>: </u> {}<br>".format(now, e)
+        user.service_failures += failure_message
+        print('failure_msg: {}\n\n'.format(failure_message))
+        print('serice_failures: {}\n\n'.format(user.service_failures))
+        user.save()
         fail_count += 1
         email_helper(user, fail_count)
     return
@@ -39,8 +42,9 @@ def phone_helper(user, fail_count=0):
     except:
         now = datetime.now()
         now = now.strftime("%d %b %Y, %H:%M")
-        failure_message = "<u>{} SMS: </u> {}<br>".format(now, e)
-        user.service_failure += failure_message
+        failure_message = "<u>{} <bold>SMS</bold>: </u> {}<br>".format(now, e)
+        user.service_failures += failure_message
+        user.save()
         fail_count += 1
         phone_helper(user, fail_count)
     return
@@ -50,11 +54,13 @@ def phone_helper(user, fail_count=0):
 def mail_service():
     target_users = models.CustomUser.objects.all().exclude(email_activation_timestamp__isnull=True)
     for user in target_users:
-        email_helper(user)
+        if user.email_remind_status:
+            email_helper(user)
     return
 
 def phone_service():
     target_users = models.CustomUser.objects.all().exclude(email_activation_timestamp__isnull=True)
     for user in target_users:
-        phone_helper(user)
+        if user.phone_remind_status:
+            phone_helper(user)
     return

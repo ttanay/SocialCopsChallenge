@@ -51,30 +51,6 @@
     </div>
 
 
-    <!-- LOG -->
-
-    <div class="container">
-        <div class="card my-2" id="log">
-            <div class="card-header">
-                <p class="text-center my-auto lead">Service Failures</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-10 col-md-8 offset-md-2 offset-1">
-                        <p class="text-left">
-                            {% if user.service_failure %}
-                                {{ user.service_Failure }}
-                            {% else %}
-                                <p class="text-center">The service has not failed.</p>
-                            {% endif %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <!-- RUNNING TIME -->
 
     <div class="container">
@@ -98,6 +74,29 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOG -->
+
+    <div class="container">
+        <div class="card my-2" id="log">
+            <div class="card-header">
+                <p class="text-center my-auto lead">Service Failures</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10 col-md-8 offset-md-2 offset-1">
+                        <p class="text-left">
+                            {% if user.service_failures != None %}
+                                {{ user.service_failures|safe }}
+                            {% else %}
+                                <p class="text-center">The service has not failed.</p>
+                            {% endif %}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,5 +182,10 @@
             });
         });
     </script>
+
+    <footer class="footer bg-light mt-3">
+        <p class="text-center m-0 p-1">Made with &hearts; by <a href="https://github.com/ttanay">T. Tanay</a></p>
+    </footer>
+
 {% endblock %}
 
