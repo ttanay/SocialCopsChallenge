@@ -19,5 +19,8 @@ Please do the following:
 1. Type `git clone https://github.com/ttanay/SocialCopsChallenge` in terminal and press Enter.
 2. In file `challenge/credentials.py`, add your email_id in `GMAIL_ID` and password in `GMAIL_PASSWORD`.
 3. Sign up on MSG91 and copy your auth-key and paste it in `MSG_URL` in the `challenge/credentials.py` file.
-4. Add the cronjobs to your crontab using command `python3 manage.py crontab add`. You may have to run `python3 manage.py crontab remove` first depending on the error message. [Reference: kraiz/django-crontab](https://github.com/kraiz/django-crontab)
-5. Run the server using the command `python3 manage.py runserver`.
+5. Change `DATABASES` settings variable in `challenge/settings.py` according to your need - AWS or sqlite3.
+6. Enter command `python3 -m venv env` in terminal, press Enter.
+7. Enter `source env/bin/activate` and press Enter.
+8. Add the cronjobs to your crontab using command `python3 manage.py crontab add`. You may have to run `python3 manage.py crontab remove` first depending on the error message. [Reference: kraiz/django-crontab](https://github.com/kraiz/django-crontab)
+9. Run the server using the command `python3 manage.py runserver`.
