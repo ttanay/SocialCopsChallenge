@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'socialcops',
         'USER': 'ttanay',
         'PASSWORD': 'password123',
-        'HOST': 'socialcops.csplxdvfgl4x.ap-south-1.rds.amazonaws.com',
+        'HOST': '<HOST-URL>',
         'PORT': '5432',
     }
 }
