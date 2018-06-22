@@ -22,5 +22,7 @@ Please do the following:
 5. Change `DATABASES` settings variable in `challenge/settings.py` according to your need - AWS or sqlite3.
 6. Enter command `python3 -m venv env` in terminal, press Enter.
 7. Enter `source env/bin/activate` and press Enter.
+8. Run the command `python3 manage.py makemigrations` in terminal.
+9. Run the command `python3 manage.py migrate` in terminal.
 8. Add the cronjobs to your crontab using command `python3 manage.py crontab add`. You may have to run `python3 manage.py crontab remove` first depending on the error message. [Reference: kraiz/django-crontab](https://github.com/kraiz/django-crontab)
 9. Run the server using the command `python3 manage.py runserver`.
